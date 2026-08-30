@@ -19,7 +19,7 @@ Make budgeting feel intuitive and practical. Help a user turn actual paychecks i
 Friendly, practical, non-judgmental, empowering, and beginner-friendly.
 
 ## Visual Direction
-Dark financial dashboard inspired by the supplied banking UI reference: graphite surfaces, soft depth, restrained lime accent, clear data hierarchy, compact controls, and a responsive layout. Inspiration is used for hierarchy, spacing, composition, and palette direction, not copied directly.
+Dark financial dashboard inspired by the supplied banking UI reference: deep navy/graphite surfaces, dark blue accent, soft depth, clear data hierarchy, compact controls, and a responsive layout. Inspiration is used for hierarchy, spacing, composition, and palette direction, not copied directly.
 
 ## Page Structure
 - Hero with primary CTA: Build My Budget
@@ -52,4 +52,4 @@ No external assets required. The initial visual direction comes from the user-su
 Complex onboarding, account requirements for the first version, dense finance dashboards, decorative charts that do not add information, excessive animation, aggressive sales language, and implementation frameworks such as React, Tailwind, Next.js, npm, or a build system.
 
 ## Current Decisions
-The first release is a lightweight single-file browser tool. No login or backend is required yet. Local browser saving plus CSV export gives users practical persistence without adding system complexity. The primary user path is: enter actual payouts → choose a rule → edit category items → see budget status → download a copy.
+The first release is a lightweight single-file browser tool. No login or backend is required yet. Local browser saving plus CSV export gives users practical persistence without adding system complexity. The primary user path is: enter actual payouts → choose a rule → edit category items → see budget status → download a copy. The visual accent was changed from lime green to dark blue to better match the user's preferred direction.
