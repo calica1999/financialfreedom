@@ -1,0 +1,1 @@
+Backup marker before fixing cloud save/loading and Excel export. Current main commit: 586de66a0ec30e177731008977d257f298f068c3.
