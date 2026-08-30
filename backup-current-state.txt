@@ -1,0 +1,1 @@
+Current state preserved by the preceding commit before the repair.
