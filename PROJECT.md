@@ -7,55 +7,53 @@ https://github.com/calica1999/financialfreedom
 https://calica1999.github.io/financialfreedom/
 
 ## Product
-Interactive financial planner for choosing a budgeting rule, entering real take-home payouts, planning expenses, checking budget status, saving a chosen budget version, and keeping an Excel copy.
+Beginner-friendly financial planner with a fixed landing page and a protected budget-planner page.
 
 ## Audience
-Young professionals starting their careers and beginners who have difficulty managing money.
+Young professionals starting their careers and people who have difficulty managing money.
 
 ## Goal
-Make budgeting feel intuitive and practical. Help a user turn actual paychecks into a workable plan without requiring a finance background.
+Turn real paychecks into a practical budget without requiring a finance background.
 
 ## Brand
-Friendly, practical, non-judgmental, empowering, and beginner-friendly.
+Friendly, practical, non-judgmental, empowering, beginner-friendly.
 
 ## Visual Direction
-Dark financial dashboard inspired by the supplied banking UI reference: deep navy/graphite surfaces, dark blue accent, soft depth, compact controls, clear data hierarchy, and restrained hover motion.
+Dark navy/graphite financial dashboard, dark blue accent, soft depth, compact controls, restrained hover motion, clear hierarchy.
 
 ## Page Structure
-- Hero with primary CTA: Build My Budget
-- Interactive planner
-- Budgeting rule guide
-- How it works
-- Footer
-- Floating calculator available on demand
-- Login/account modal for cloud saving
+- `index.html`: non-scrollable landing page only.
+- `planner.html`: authenticated budgeting workspace.
+- Landing page contains login plus Build My Budget / Compare budgeting rules entry points.
+- Logging out from the planner returns to the landing page.
+- Planner contains payout setup, rules, editable expense groups, save, Excel export, and floating calculator.
 
 ## Copy Direction
 Direct, plain-language, supportive, specific. Avoid financial jargon, filler, hype, and judgmental language.
 
+## Functionality
+- Landing page has no budgeting controls and does not scroll.
+- Login/sign-up uses Supabase Auth.
+- Build My Budget requires authentication, then opens `planner.html`.
+- `planner.html` redirects unauthenticated visitors back to the landing page.
+- Logout returns to the landing page.
+- Payout frequency: weekly, bi-weekly, or monthly.
+- Multiple payout entries with different take-home amounts.
+- Rules: 50/30/20, 70/20/10, 60/40, 80/20, Custom.
+- Editable expense sub-items under Needs, Wants, and Savings / Debt.
+- Starter suggestions: Housing, Groceries; Dining out, Subscriptions; Emergency fund, Debt payment.
+- Live budget indicators show remaining, on-target, or over-budget states.
+- Planner edits are drafts until the authenticated user clicks **Save budget**. No autosave to cloud.
+- Save budget writes the current planner state to that user's Supabase budget record using Row Level Security.
+- Existing saved cloud budget is restored on authenticated planner load.
+- Excel export creates a styled `.xlsx` workbook with navy/blue Financial Freedom styling and PHP currency formatting.
+- Floating calculator shows the active operation, keeps calculation history locally, supports keyboard input, has a hold-to-drag control, and diagonally resizes from 75%–125% scale.
+
 ## Assets
 No external visual assets required.
 
-## Functionality
-- Payout frequency: weekly, bi-weekly, or monthly.
-- Multiple payout entries for different take-home amounts within a month.
-- Preset rules: 50/30/20, 70/20/10, 60/40, 80/20, and Custom.
-- Editable expense sub-items under Needs, Wants, and Savings / Debt.
-- Starter suggestions: Housing, Groceries; Dining out, Subscriptions; Emergency fund, Debt payment.
-- Live category and overall budget indicators showing remaining, on-target, or over-budget states.
-- 60/40 and 80/20 use a combined spending target plus a savings/debt target.
-- Planner edits are drafts until the user clicks **Save budget**. Autosave is suppressed.
-- Save budget is shown only to authenticated users and saves the current planner values to that user's Supabase budget record.
-- Email/password login and sign-up through Supabase Auth.
-- Cloud budget rows use per-user Row Level Security.
-- Saved cloud budgets are restored when the authenticated user returns.
-- Account modal shows whether a saved budget exists and its saved take-home amount.
-- Excel budget export with Financial Freedom styling and PHP currency formatting.
-- Floating calculator with operation display, history, keyboard support, draggable movement, and diagonal resize limited to 75%–125% scale.
-- Calculator history/position/size remain local to the device.
-
 ## Avoid
-Complex onboarding, judgmental messaging, excessive animation, decorative charts that do not add information, aggressive sales language, and unnecessary frameworks/build systems.
+Complex onboarding, excessive animation, decorative charts without information value, aggressive sales language, and unnecessary frameworks/build systems.
 
 ## Current Decisions
-The planner uses an explicit-save workflow so users can experiment without overwriting the saved budget until they choose Save budget. Authenticated saving is cloud-backed with Supabase; logged-out users can use the planner without a save control. Excel export is a styled .xlsx workbook rather than CSV. GitHub Pages is the deployment target.
+Authentication and budgeting are intentionally separated: the landing page is a simple entry page, while the planner is a protected workspace. Saving is always explicit and only available to authenticated users. The landing page is the post-logout destination.
