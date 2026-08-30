@@ -35,7 +35,7 @@ Direct, plain-language, supportive, specific. Avoid financial jargon, filler, hy
 - Landing page has no budgeting controls and does not scroll.
 - Login/sign-up uses Supabase Auth.
 - Build My Budget requires authentication, then opens `planner.html`.
-- `planner.html` redirects unauthenticated visitors back to the landing page.
+- `planner.html` redirects unauthenticated visitors back to the landing page before loading the planner UI.
 - Logout returns to the landing page.
 - Payout frequency: weekly, bi-weekly, or monthly.
 - Multiple payout entries with different take-home amounts.
