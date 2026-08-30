@@ -1,0 +1,1 @@
+Backup marker before authentication loop fix. The previous main commit is preserved in the branch `backup-before-auth-loop-fix`.
