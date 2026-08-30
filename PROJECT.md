@@ -4,7 +4,7 @@
 https://github.com/calica1999/financialfreedom
 
 ## Deployment
-Not deployed yet.
+https://calica1999.github.io/financialfreedom/
 
 ## Product
 Interactive financial planner for choosing a budgeting rule, entering real take-home payouts, planning expenses, checking budget status, and keeping a copy of the plan.
@@ -52,4 +52,4 @@ No external assets required. The initial visual direction comes from the user-su
 Complex onboarding, account requirements for the first version, dense finance dashboards, decorative charts that do not add information, excessive animation, aggressive sales language, and implementation frameworks such as React, Tailwind, Next.js, npm, or a build system.
 
 ## Current Decisions
-The first release is a lightweight single-file browser tool. No login or backend is required yet. Local browser saving plus CSV export gives users practical persistence without adding system complexity. The primary user path is: enter actual payouts → choose a rule → edit category items → see budget status → download a copy. The visual accent was changed from lime green to dark blue to better match the user's preferred direction.
+The first release is a lightweight single-file browser tool. No login or backend is required yet. Local browser saving plus CSV export gives users practical persistence without adding system complexity. The primary user path is: enter actual payouts → choose a rule → edit category items → see budget status → download a copy. The visual accent was changed from lime green to dark blue to better match the user's preferred direction. GitHub Pages is enabled and is the current deployment target.
