@@ -1,0 +1,1 @@
+Git history before reliable save/export repair is preserved.
