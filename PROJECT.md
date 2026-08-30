@@ -44,10 +44,12 @@ No external visual assets required.
 - Starter suggestions: Housing, Groceries; Dining out, Subscriptions; Emergency fund, Debt payment.
 - Live category and overall budget indicators showing remaining, on-target, or over-budget states.
 - 60/40 and 80/20 use a combined spending target plus a savings/debt target.
-- Planner changes are drafts until the user clicks **Save budget**. No planner autosave while editing.
-- Save budget stores the chosen version locally and, when logged in, syncs it to the user's Supabase budget record.
-- Email/password login and sign-up are available through Supabase Auth.
+- Planner edits are drafts until the user clicks **Save budget**. Autosave is suppressed.
+- Save budget is shown only to authenticated users and saves the current planner values to that user's Supabase budget record.
+- Email/password login and sign-up through Supabase Auth.
 - Cloud budget rows use per-user Row Level Security.
+- Saved cloud budgets are restored when the authenticated user returns.
+- Account modal shows whether a saved budget exists and its saved take-home amount.
 - Excel budget export with Financial Freedom styling and PHP currency formatting.
 - Floating calculator with operation display, history, keyboard support, draggable movement, and diagonal resize limited to 75%–125% scale.
 - Calculator history/position/size remain local to the device.
@@ -56,4 +58,4 @@ No external visual assets required.
 Complex onboarding, judgmental messaging, excessive animation, decorative charts that do not add information, aggressive sales language, and unnecessary frameworks/build systems.
 
 ## Current Decisions
-The planner uses an explicit-save workflow so users can experiment without overwriting the saved budget until they choose Save budget. Local storage is used for the saved planner copy and calculator preferences; authenticated users can also save the selected budget to Supabase. GitHub Pages is the deployment target.
+The planner uses an explicit-save workflow so users can experiment without overwriting the saved budget until they choose Save budget. Authenticated saving is cloud-backed with Supabase; logged-out users can use the planner without a save control. Excel export is a styled .xlsx workbook rather than CSV. GitHub Pages is the deployment target.
