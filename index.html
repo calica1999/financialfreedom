@@ -7,693 +7,120 @@
   <title>Financial Freedom — Build a budget that fits your paycheck</title>
   <style>
     :root{
-      --bg:#171719;
-      --surface:#222225;
-      --surface-2:#2c2c30;
-      --surface-3:#333338;
-      --line:#44444b;
-      --text:#f3f3ee;
-      --muted:#b8b8af;
-      --accent:#b9f445;
-      --accent-soft:#d7ff7c;
-      --success:#b9f445;
-      --warning:#f4c95d;
-      --danger:#ff7e7e;
-      --shadow:0 18px 45px rgba(0,0,0,.26);
-      --radius:14px;
-      --max:1180px;
+      --bg:#111827;--surface:#182235;--surface-2:#202e45;--surface-3:#2a3a55;--line:#34445e;
+      --text:#f4f7fb;--muted:#aeb9ca;--accent:#2563eb;--accent-soft:#3b82f6;--success:#5eead4;--warning:#f4c95d;--danger:#ff7e7e;
+      --shadow:0 18px 45px rgba(0,0,0,.28);--radius:14px;--max:1180px
     }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 78% 6%, rgba(185,244,69,.08), transparent 32%),
-        linear-gradient(180deg,#1a1a1d 0%,#171719 42%,#141416 100%);
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      line-height:1.55;
-    }
-    body,button,input,select{font:inherit}
-    ::selection{background:var(--accent);color:#161616}
-    ::-webkit-scrollbar{width:12px}
-    ::-webkit-scrollbar-track{background:#141416}
-    ::-webkit-scrollbar-thumb{background:#414148;border:3px solid #141416;border-radius:12px}
-    ::-webkit-scrollbar-thumb:hover{background:#5a5a62}
-
-    a{color:inherit}
-    button,input,select{accent-color:var(--accent)}
-    button{cursor:pointer}
-    button:disabled{cursor:not-allowed;opacity:.5}
-    :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;color:var(--text);background:radial-gradient(circle at 78% 6%,rgba(37,99,235,.14),transparent 32%),linear-gradient(180deg,#141b2a 0%,#111827 45%,#0e1522 100%);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+    body,button,input,select{font:inherit} a{color:inherit} button{cursor:pointer} button:disabled{cursor:not-allowed;opacity:.5}
+    ::selection{background:var(--accent);color:#fff} :focus-visible{outline:3px solid #60a5fa;outline-offset:3px}
     .shell{width:min(calc(100% - 32px),var(--max));margin:0 auto}
-    .site-header{
-      position:sticky;top:0;z-index:20;
-      background:rgba(23,23,25,.92);backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(255,255,255,.06)
-    }
-    .nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:-.02em}
-    .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:#171719;font-weight:900}
-    .brand-mark span{width:10px;height:10px;background:#171719;border-radius:3px}
-    .nav-links{display:flex;align-items:center;gap:22px;color:var(--muted);font-size:.95rem}
-    .nav-links a{text-decoration:none}
-    .nav-links a:hover{color:var(--text)}
-
-    .btn{
-      min-height:44px;border:1px solid transparent;border-radius:11px;padding:0 16px;
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:750;text-decoration:none;
-      transition:transform .18s ease,background .18s ease,border-color .18s ease,color .18s ease
-    }
-    .btn:hover{transform:translateY(-1px)}
-    .btn-primary{background:var(--accent);color:#171719}
-    .btn-primary:hover{background:var(--accent-soft)}
-    .btn-secondary{background:transparent;border-color:var(--line);color:var(--text)}
-    .btn-secondary:hover{background:var(--surface-2);border-color:#5a5a62}
-    .btn-quiet{background:transparent;color:var(--muted);padding:0 8px}
-    .btn-quiet:hover{color:var(--text)}
-
-    main{overflow:hidden}
-    .hero{padding:76px 0 54px}
-    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:end}
-    .hero-copy{max-width:760px}
-    .hero h1{
-      margin:0;max-width:12ch;font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.04em;
-      text-wrap:balance
-    }
-    .hero p{max-width:65ch;margin:22px 0 0;color:var(--muted);font-size:1.08rem}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-    .hero-note{align-self:end;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.9rem}
-    .hero-note strong{color:var(--text)}
-
-    .section{padding:34px 0 86px;scroll-margin-top:88px}
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:18px}
-    .section-head h2{margin:0;font-size:clamp(1.8rem,3vw,2.65rem);line-height:1.05;letter-spacing:-.03em}
-    .section-head p{margin:0;color:var(--muted);max-width:62ch}
-
-    .planner{display:grid;grid-template-columns:310px minmax(0,1fr);gap:16px;align-items:start}
-    .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .setup-panel{padding:20px;position:sticky;top:84px}
-    .results-panel{min-width:0}
-    .panel-title{margin:0 0 4px;font-size:1.02rem}
-    .panel-subtitle{margin:0 0 18px;color:var(--muted);font-size:.9rem}
-    .field{display:grid;gap:7px;margin-top:15px}
-    label{font-size:.9rem;font-weight:700;color:#deded8}
-    input,select{
-      width:100%;min-height:44px;border-radius:10px;border:1px solid var(--line);background:#19191c;color:var(--text);
-      padding:0 12px
-    }
-    input::placeholder{color:#7f7f85}
-    input[type=number]{font-variant-numeric:tabular-nums}
-    .hint{color:var(--muted);font-size:.78rem}
-    .payouts{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
-    .payout-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}
-    .payout-row button{width:38px;padding:0;border:1px solid var(--line);border-radius:9px;background:#1a1a1d;color:var(--muted)}
-    .payout-row button:hover{color:var(--text);background:var(--surface-2)}
-    .add-payout{margin-top:9px;font-size:.86rem}
-    .rule-stack{display:grid;gap:8px;margin-top:9px}
-    .rule-option{display:block;border:1px solid var(--line);border-radius:12px;padding:12px;background:#1d1d20}
-    .rule-option:has(input:checked){border-color:var(--accent);background:#23291b}
-    .rule-top{display:flex;gap:8px;align-items:flex-start}
-    .rule-top input{width:auto;min-height:auto;margin-top:4px}
-    .rule-name{font-weight:800}
-    .rule-desc{font-size:.78rem;color:var(--muted);margin-top:4px;padding-left:24px}
-    .custom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-    .custom-grid label{font-size:.74rem;color:var(--muted)}
-
-    .results-head{padding:22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px}
-    .results-title h3{margin:0;font-size:1.28rem;letter-spacing:-.02em}
-    .results-title p{margin:4px 0 0;color:var(--muted);font-size:.87rem}
-    .save-state{font-size:.78rem;color:var(--muted);text-align:right;white-space:nowrap}
-    .save-state strong{color:var(--text);display:block}
-
-    .summary{padding:22px;display:grid;gap:18px}
-    .summary-top{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
-    .income-box{border-bottom:1px solid var(--line);padding-bottom:16px}
-    .eyebrow{color:var(--muted);font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    .income-value{font-size:clamp(2.25rem,5vw,4.3rem);font-weight:850;letter-spacing:-.04em;line-height:1;margin-top:5px;font-variant-numeric:tabular-nums}
-    .income-meta{margin-top:7px;color:var(--muted)}
-    .overall{padding:16px;background:#1b1b1e;border:1px solid var(--line);border-radius:12px}
-    .overall-line{display:flex;justify-content:space-between;gap:12px;font-weight:800}
-    .bar{height:11px;margin:11px 0 8px;background:#39393e;border-radius:99px;overflow:hidden}
-    .bar > span{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .25s ease,background .25s ease}
-    .overall-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.83rem}
-    .status{font-weight:800}
-    .status.good{color:var(--success)}
-    .status.warn{color:var(--warning)}
-    .status.bad{color:var(--danger)}
-
-    .budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .budget-line{padding:14px;border:1px solid var(--line);border-radius:12px;background:#1b1b1e}
-    .budget-line h4{margin:0;font-size:.92rem}
-    .budget-number{font-size:1.25rem;font-weight:850;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
-    .budget-note{font-size:.78rem;color:var(--muted);margin-top:2px}
-
-    .expense-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 22px 22px}
-    .expense-group{border-top:1px solid var(--line);padding-top:18px}
-    .expense-group header{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:9px}
-    .expense-group h4{margin:0;font-size:1rem}
-    .expense-total{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
-    .expense-status{font-size:.78rem;margin:4px 0 11px;font-weight:750}
-    .expense-items{display:grid;gap:8px}
-    .expense-row{display:grid;grid-template-columns:minmax(0,1fr) 100px 34px;gap:7px}
-    .expense-row input{min-height:39px;padding:0 9px}
-    .expense-row button{border:1px solid var(--line);border-radius:9px;background:#19191c;color:var(--muted)}
-    .expense-row button:hover{color:var(--text);background:var(--surface-2)}
-    .add-expense{margin-top:8px;font-size:.82rem}
-
-    .actions{display:flex;flex-wrap:wrap;gap:9px;padding:0 22px 22px}
-    .actions .btn{min-height:40px;font-size:.88rem}
-
-    .rule-section{padding-top:10px}
-    .rule-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-    .rule-card{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-    .rule-card strong{display:block;font-size:1.05rem}
-    .rule-card span{display:block;color:var(--muted);font-size:.78rem;margin-top:6px}
-
-    .how-it-works{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start}
-    .steps{display:grid;gap:8px}
-    .step{display:grid;grid-template-columns:42px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
-    .step:first-child{border-top:0;padding-top:0}
-    .step-index{width:34px;height:34px;border-radius:9px;background:var(--surface-2);display:grid;place-items:center;color:var(--accent);font-weight:850}
-    .step h3{margin:0;font-size:1rem}
-    .step p{margin:3px 0 0;color:var(--muted);font-size:.88rem}
-    .note-block{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px}
-    .note-block h3{margin:0 0 7px}
-    .note-block p{margin:0;color:var(--muted);font-size:.88rem}
-
-    footer{border-top:1px solid var(--line);padding:22px 0 64px;color:var(--muted);font-size:.82rem}
-    .footer-line{display:flex;justify-content:space-between;gap:20px}
-
-    .calculator-toggle{
-      position:fixed;right:20px;bottom:20px;z-index:40;min-height:48px;border:1px solid #5b5b61;
-      border-radius:12px;padding:0 14px;background:var(--surface-2);color:var(--text);box-shadow:0 18px 30px rgba(0,0,0,.3);font-weight:800
-    }
-    .calculator-toggle:hover{background:#3a3a40}
-    .calculator{
-      position:fixed;right:20px;bottom:78px;z-index:39;width:min(330px,calc(100% - 40px));
-      border:1px solid var(--line);border-radius:14px;background:#1d1d20;box-shadow:0 24px 55px rgba(0,0,0,.38);overflow:hidden
-    }
-    .calculator[hidden]{display:none}
-    .calc-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-    .calc-head strong{font-size:.9rem}
-    .calc-close{border:0;background:transparent;color:var(--muted);font-size:1.2rem;line-height:1;padding:3px 6px}
-    .calc-display{padding:16px;text-align:right;font-size:2rem;font-weight:800;letter-spacing:-.03em;overflow:hidden;font-variant-numeric:tabular-nums}
-    .calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 12px 12px}
-    .calc-keys button{min-height:48px;border:1px solid var(--line);border-radius:10px;background:#28282d;color:var(--text);font-weight:800}
-    .calc-keys button:hover{background:#35353b}
-    .calc-keys .op{color:var(--accent)}
-    .calc-keys .equals{grid-row:span 2;background:var(--accent);color:#171719;border-color:var(--accent)}
-
-    .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,12px);padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#252529;color:var(--text);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:60;font-size:.84rem}
-    .toast.show{opacity:1;transform:translate(-50%,0)}
-
-    @media (max-width:980px){
-      .hero-grid,.how-it-works{grid-template-columns:1fr}
-      .hero-note{max-width:60ch}
-      .planner{grid-template-columns:1fr}
-      .setup-panel{position:static}
-      .rule-cards{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:760px){
-      .shell{width:min(calc(100% - 22px),var(--max))}
-      .nav{height:60px}.nav-links{display:none}
-      .hero{padding:54px 0 36px}
-      .hero h1{max-width:10ch}
-      .section{padding-bottom:64px}
-      .summary-top{grid-template-columns:1fr}
-      .budget-grid,.expense-grid{grid-template-columns:1fr}
-      .results-head{align-items:flex-start;flex-direction:column}
-      .save-state{text-align:left}
-      .footer-line{flex-direction:column}
-    }
-    @media (max-width:480px){
-      .hero-actions .btn{width:100%}
-      .custom-grid{grid-template-columns:1fr}
-      .rule-cards{grid-template-columns:1fr}
-      .expense-row{grid-template-columns:minmax(0,1fr) 86px 34px}
-      .calculator{right:11px;width:calc(100% - 22px)}
-      .calculator-toggle{right:11px}
-    }
-
-    @media (prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      *,*::before,*::after{transition:none!important;animation:none!important}
-    }
-
-    .reveal{animation:intro .65s cubic-bezier(.16,1,.3,1) both}
-    @keyframes intro{from{opacity:.82;transform:translateY(12px)}to{opacity:1;transform:none}}
+    .site-header{position:sticky;top:0;z-index:20;background:rgba(17,24,39,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:-.02em}
+    .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:#fff;font-weight:900}.brand-mark span{width:10px;height:10px;background:#fff;border-radius:3px}
+    .nav-links{display:flex;align-items:center;gap:22px;color:var(--muted);font-size:.95rem}.nav-links a{text-decoration:none}.nav-links a:hover{color:var(--text)}
+    .btn{min-height:44px;border:1px solid transparent;border-radius:11px;padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:750;text-decoration:none;transition:transform .18s ease,background .18s ease,border-color .18s ease,color .18s ease}.btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-soft)}.btn-secondary{background:transparent;border-color:var(--line);color:var(--text)}.btn-secondary:hover{background:var(--surface-2);border-color:#52657f}.btn-quiet{background:transparent;color:var(--muted);padding:0 8px}.btn-quiet:hover{color:var(--text)}
+    main{overflow:hidden}.hero{padding:76px 0 54px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:end}.hero-copy{max-width:760px}.hero h1{margin:0;max-width:12ch;font-size:clamp(3rem,7vw,6rem);line-height:.95;letter-spacing:-.04em;text-wrap:balance}.hero p{max-width:65ch;margin:22px 0 0;color:var(--muted);font-size:1.08rem}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.hero-note{align-self:end;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:.9rem}.hero-note strong{color:var(--text)}
+    .section{padding:34px 0 86px;scroll-margin-top:88px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:18px}.section-head h2{margin:0;font-size:clamp(1.8rem,3vw,2.65rem);line-height:1.05;letter-spacing:-.03em}.section-head p{margin:0;color:var(--muted);max-width:62ch}
+    .planner{display:grid;grid-template-columns:310px minmax(0,1fr);gap:16px;align-items:start}.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.setup-panel{padding:20px;position:sticky;top:84px}.results-panel{min-width:0}.panel-title{margin:0 0 4px;font-size:1.02rem}.panel-subtitle{margin:0 0 18px;color:var(--muted);font-size:.9rem}
+    .field{display:grid;gap:7px;margin-top:15px}label{font-size:.9rem;font-weight:700;color:#dce4f0}input,select{width:100%;min-height:44px;border-radius:10px;border:1px solid var(--line);background:#101827;color:var(--text);padding:0 12px}input::placeholder{color:#7f8ba0}input[type=number]{font-variant-numeric:tabular-nums}.hint{color:var(--muted);font-size:.78rem}
+    .payouts{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}.payout-row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}.payout-row button{width:38px;padding:0;border:1px solid var(--line);border-radius:9px;background:#101827;color:var(--muted)}.payout-row button:hover{color:var(--text);background:var(--surface-2)}.add-payout{margin-top:9px;font-size:.86rem}
+    .rule-stack{display:grid;gap:8px;margin-top:9px}.rule-option{display:block;border:1px solid var(--line);border-radius:12px;padding:12px;background:#141e2e}.rule-option:has(input:checked){border-color:var(--accent);background:#162a52}.rule-top{display:flex;gap:8px;align-items:flex-start}.rule-top input{width:auto;min-height:auto;margin-top:4px}.rule-name{font-weight:800}.rule-desc{font-size:.78rem;color:var(--muted);margin-top:4px;padding-left:24px}.custom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.custom-grid label{font-size:.74rem;color:var(--muted)}
+    .results-head{padding:22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px}.results-title h3{margin:0;font-size:1.28rem;letter-spacing:-.02em}.results-title p{margin:4px 0 0;color:var(--muted);font-size:.87rem}.save-state{font-size:.78rem;color:var(--muted);text-align:right;white-space:nowrap}.save-state strong{color:var(--text);display:block}
+    .summary{padding:22px;display:grid;gap:18px}.summary-top{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.income-box{border-bottom:1px solid var(--line);padding-bottom:16px}.eyebrow{color:var(--muted);font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.income-value{font-size:clamp(2.25rem,5vw,4.3rem);font-weight:850;letter-spacing:-.04em;line-height:1;margin-top:5px;font-variant-numeric:tabular-nums}.income-meta{margin-top:7px;color:var(--muted)}
+    .overall{padding:16px;background:#131e30;border:1px solid var(--line);border-radius:12px}.overall-line{display:flex;justify-content:space-between;gap:12px;font-weight:800}.bar{height:11px;margin:11px 0 8px;background:#34445b;border-radius:99px;overflow:hidden}.bar>span{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .25s ease,background .25s ease}.overall-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.83rem}.status{font-weight:800}.status.good{color:var(--success)}.status.warn{color:var(--warning)}.status.bad{color:var(--danger)}
+    .budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.budget-line{padding:14px;border:1px solid var(--line);border-radius:12px;background:#131e30}.budget-line h4{margin:0;font-size:.92rem}.budget-number{font-size:1.25rem;font-weight:850;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}.budget-note{font-size:.78rem;color:var(--muted);margin-top:2px}
+    .expense-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 22px 22px}.expense-group{border-top:1px solid var(--line);padding-top:18px}.expense-group header{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:9px}.expense-group h4{margin:0;font-size:1rem}.expense-total{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}.expense-status{font-size:.78rem;margin:4px 0 11px;font-weight:750}.expense-items{display:grid;gap:8px}.expense-row{display:grid;grid-template-columns:minmax(0,1fr) 100px 34px;gap:7px}.expense-row input{min-height:39px;padding:0 9px}.expense-row button{border:1px solid var(--line);border-radius:9px;background:#101827;color:var(--muted)}.expense-row button:hover{color:var(--text);background:var(--surface-2)}.add-expense{margin-top:8px;font-size:.82rem}
+    .actions{display:flex;flex-wrap:wrap;gap:9px;padding:0 22px 22px}.actions .btn{min-height:40px;font-size:.88rem}.rule-section{padding-top:10px}.rule-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.rule-card{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.rule-card strong{display:block;font-size:1.05rem}.rule-card span{display:block;color:var(--muted);font-size:.78rem;margin-top:6px}
+    .how-it-works{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start}.steps{display:grid;gap:8px}.step{display:grid;grid-template-columns:42px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}.step:first-child{border-top:0;padding-top:0}.step-index{width:34px;height:34px;border-radius:9px;background:var(--surface-2);display:grid;place-items:center;color:#60a5fa;font-weight:850}.step h3{margin:0;font-size:1rem}.step p{margin:3px 0 0;color:var(--muted);font-size:.88rem}.note-block{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px}.note-block h3{margin:0 0 7px}.note-block p{margin:0;color:var(--muted);font-size:.88rem}
+    footer{border-top:1px solid var(--line);padding:22px 0 64px;color:var(--muted);font-size:.82rem}.footer-line{display:flex;justify-content:space-between;gap:20px}
+    .calculator-toggle{position:fixed;right:20px;bottom:20px;z-index:40;min-height:48px;border:1px solid #48628a;border-radius:12px;padding:0 14px;background:var(--surface-2);color:var(--text);box-shadow:0 18px 30px rgba(0,0,0,.3);font-weight:800}.calculator-toggle:hover{background:#2a3b58}.calculator{position:fixed;right:20px;bottom:78px;z-index:39;width:min(330px,calc(100% - 40px));border:1px solid var(--line);border-radius:14px;background:#142033;box-shadow:0 24px 55px rgba(0,0,0,.38);overflow:hidden}.calculator[hidden]{display:none}.calc-head{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.calc-head strong{font-size:.9rem}.calc-close{border:0;background:transparent;color:var(--muted);font-size:1.2rem;line-height:1;padding:3px 6px}.calc-display{padding:16px;text-align:right;font-size:2rem;font-weight:800;letter-spacing:-.03em;overflow:hidden;font-variant-numeric:tabular-nums}.calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 12px 12px}.calc-keys button{min-height:48px;border:1px solid var(--line);border-radius:10px;background:#21304a;color:var(--text);font-weight:800}.calc-keys button:hover{background:#2b3d5d}.calc-keys .op{color:#60a5fa}.calc-keys .equals{grid-row:span 2;background:var(--accent);color:#fff;border-color:var(--accent)}
+    .toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,12px);padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#1d2b41;color:var(--text);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:60;font-size:.84rem}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:980px){.hero-grid,.how-it-works{grid-template-columns:1fr}.hero-note{max-width:60ch}.planner{grid-template-columns:1fr}.setup-panel{position:static}.rule-cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:760px){.shell{width:min(calc(100% - 22px),var(--max))}.nav{height:60px}.nav-links{display:none}.hero{padding:54px 0 36px}.hero h1{max-width:10ch}.section{padding-bottom:64px}.summary-top{grid-template-columns:1fr}.budget-grid,.expense-grid{grid-template-columns:1fr}.results-head{align-items:flex-start;flex-direction:column}.save-state{text-align:left}.footer-line{flex-direction:column}}
+    @media(max-width:480px){.hero-actions .btn{width:100%}.custom-grid{grid-template-columns:1fr}.rule-cards{grid-template-columns:1fr}.expense-row{grid-template-columns:minmax(0,1fr) 86px 34px}.calculator{right:11px;width:calc(100% - 22px)}.calculator-toggle{right:11px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
   </style>
 </head>
 <body>
   <!-- SITE HEADER -->
-  <header class="site-header">
-    <div class="shell nav">
-      <a class="brand" href="#top" aria-label="Financial Freedom home">
-        <span class="brand-mark" aria-hidden="true"><span></span></span>
-        <span>Financial Freedom</span>
-      </a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#planner">Planner</a>
-        <a href="#rules">Rules</a>
-        <a href="#how-it-works">How it works</a>
-      </nav>
-      <a class="btn btn-primary" href="#planner">Build My Budget</a>
-    </div>
-  </header>
+  <header class="site-header"><div class="shell nav"><a class="brand" href="#top" aria-label="Financial Freedom home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Financial Freedom</span></a><nav class="nav-links" aria-label="Primary navigation"><a href="#planner">Planner</a><a href="#rules">Rules</a><a href="#how-it-works">How it works</a></nav><a class="btn btn-primary" href="#planner">Build My Budget</a></div></header>
 
   <main id="top">
     <!-- SECTION: HERO -->
-    <section class="hero reveal">
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <h1>Build a budget you can actually live with.</h1>
-          <p>Pick a budgeting rule, enter each paycheck you expect this month, and see what fits. Track your plan by category and adjust it before your money disappears.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#planner">Build My Budget</a>
-            <a class="btn btn-secondary" href="#rules">Compare budgeting rules</a>
-          </div>
-        </div>
-        <div class="hero-note"><strong>Made for first-time budgeters.</strong><br>Use the starting point that fits your situation, then edit the details to match real life.</div>
-      </div>
-    </section>
+    <section class="hero"><div class="shell hero-grid"><div class="hero-copy"><h1>Build a budget you can actually live with.</h1><p>Pick a budgeting rule, enter each paycheck you expect this month, and see what fits. Track your plan by category and adjust it before your money disappears.</p><div class="hero-actions"><a class="btn btn-primary" href="#planner">Build My Budget</a><a class="btn btn-secondary" href="#rules">Compare budgeting rules</a></div></div><div class="hero-note"><strong>Made for first-time budgeters.</strong><br>Use the starting point that fits your situation, then edit the details to match real life.</div></div></section>
 
     <!-- SECTION: PLANNER -->
-    <section class="section" id="planner">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Your budget, built around your pay.</h2>
-            <p>Enter the money that actually reaches you. Add different payout amounts when each paycheck changes.</p>
-          </div>
-        </div>
+    <section class="section" id="planner"><div class="shell"><div class="section-head"><div><h2>Your budget, built around your pay.</h2><p>Enter the money that actually reaches you. Add different payout amounts when each paycheck changes.</p></div></div><div class="planner">
+      <aside class="panel setup-panel" aria-label="Budget setup"><h3 class="panel-title">Start with the basics</h3><p class="panel-subtitle">You can change everything later.</p>
+        <div class="field"><label for="payoutType">How often are you paid?</label><select id="payoutType"><option value="weekly">Weekly</option><option value="biweekly" selected>Bi-weekly</option><option value="monthly">Monthly</option></select></div>
+        <div class="payouts"><label>Take-home pay for this month</label><div id="payoutList" aria-live="polite"></div><button class="btn btn-secondary add-payout" id="addPayout" type="button">+ Add another payout</button><div class="hint" style="margin-top:8px">Use a separate line when one paycheck is different from the others.</div></div>
+        <div class="field"><label>Choose a rule</label><div class="rule-stack" role="radiogroup" aria-label="Budgeting rules">
+          <label class="rule-option"><span class="rule-top"><input type="radio" name="rule" value="503020" checked><span class="rule-name">50 / 30 / 20</span></span><span class="rule-desc">50% needs, 30% wants, 20% savings or debt.</span></label>
+          <label class="rule-option"><span class="rule-top"><input type="radio" name="rule" value="702010"><span class="rule-name">70 / 20 / 10</span></span><span class="rule-desc">70% needs, 20% savings or debt, 10% wants.</span></label>
+          <label class="rule-option"><span class="rule-top"><input type="radio" name="rule" value="6040"><span class="rule-name">60 / 40</span></span><span class="rule-desc">60% spending, 40% savings or debt.</span></label>
+          <label class="rule-option"><span class="rule-top"><input type="radio" name="rule" value="8020"><span class="rule-name">80 / 20</span></span><span class="rule-desc">80% spending, 20% savings or debt.</span></label>
+          <label class="rule-option"><span class="rule-top"><input type="radio" name="rule" value="custom"><span class="rule-name">Custom</span></span><span class="rule-desc">Set your own targets.</span><div class="custom-grid" id="customGrid"><div><label for="customNeeds">Needs %</label><input id="customNeeds" type="number" min="0" max="100" value="50"></div><div><label for="customWants">Wants %</label><input id="customWants" type="number" min="0" max="100" value="30"></div><div><label for="customSavings">Savings %</label><input id="customSavings" type="number" min="0" max="100" value="20"></div></div></label>
+        </div><div class="hint" style="margin-top:9px">These are starting points, not promises. Your real expenses get the final say.</div></div>
+      </aside>
 
-        <div class="planner">
-          <aside class="panel setup-panel" aria-label="Budget setup">
-            <h3 class="panel-title">Start with the basics</h3>
-            <p class="panel-subtitle">You can change everything later.</p>
-
-            <div class="field">
-              <label for="payoutType">How often are you paid?</label>
-              <select id="payoutType">
-                <option value="weekly">Weekly</option>
-                <option value="biweekly" selected>Bi-weekly</option>
-                <option value="monthly">Monthly</option>
-              </select>
-            </div>
-
-            <div class="payouts">
-              <label>Take-home pay for this month</label>
-              <div id="payoutList" aria-live="polite"></div>
-              <button class="btn btn-secondary add-payout" id="addPayout" type="button">+ Add another payout</button>
-              <div class="hint" style="margin-top:8px">Use a separate line when one paycheck is different from the others.</div>
-            </div>
-
-            <div class="field">
-              <label>Choose a rule</label>
-              <div class="rule-stack" role="radiogroup" aria-label="Budgeting rules">
-                <label class="rule-option">
-                  <span class="rule-top"><input type="radio" name="rule" value="503020" checked><span class="rule-name">50 / 30 / 20</span></span>
-                  <span class="rule-desc">50% needs, 30% wants, 20% savings or debt.</span>
-                </label>
-                <label class="rule-option">
-                  <span class="rule-top"><input type="radio" name="rule" value="702010"><span class="rule-name">70 / 20 / 10</span></span>
-                  <span class="rule-desc">70% needs, 20% savings or debt, 10% wants.</span>
-                </label>
-                <label class="rule-option">
-                  <span class="rule-top"><input type="radio" name="rule" value="6040"><span class="rule-name">60 / 40</span></span>
-                  <span class="rule-desc">60% spending, 40% savings or debt.</span>
-                </label>
-                <label class="rule-option">
-                  <span class="rule-top"><input type="radio" name="rule" value="8020"><span class="rule-name">80 / 20</span></span>
-                  <span class="rule-desc">80% spending, 20% savings or debt.</span>
-                </label>
-                <label class="rule-option">
-                  <span class="rule-top"><input type="radio" name="rule" value="custom"><span class="rule-name">Custom</span></span>
-                  <span class="rule-desc">Set your own targets.</span>
-                  <div class="custom-grid" id="customGrid">
-                    <div><label for="customNeeds">Needs %</label><input id="customNeeds" type="number" min="0" max="100" value="50"></div>
-                    <div><label for="customWants">Wants %</label><input id="customWants" type="number" min="0" max="100" value="30"></div>
-                    <div><label for="customSavings">Savings %</label><input id="customSavings" type="number" min="0" max="100" value="20"></div>
-                  </div>
-                </label>
-              </div>
-              <div class="hint" style="margin-top:9px">These are starting points, not promises. Your real expenses get the final say.</div>
-            </div>
-          </aside>
-
-          <section class="panel results-panel" aria-label="Budget results">
-            <header class="results-head">
-              <div class="results-title">
-                <h3>Your plan</h3>
-                <p id="ruleSummary">50 / 30 / 20 • needs / wants / savings</p>
-              </div>
-              <div class="save-state" id="saveState" role="status"><strong>Saved on this device</strong><span>Your changes save automatically.</span></div>
-            </header>
-
-            <div class="summary">
-              <div class="summary-top">
-                <div class="income-box">
-                  <div class="eyebrow">Take-home for this month</div>
-                  <div class="income-value" id="incomeTotal">₱0</div>
-                  <div class="income-meta" id="incomeMeta">Add your payouts to start planning.</div>
-                </div>
-                <div class="overall">
-                  <div class="overall-line"><span>Plan check</span><span id="overallStatus" class="status good">Add expenses</span></div>
-                  <div class="bar" aria-hidden="true"><span id="overallBar"></span></div>
-                  <div class="overall-detail"><span id="overallDetail">Nothing planned yet.</span><span id="overallPercent">0%</span></div>
-                </div>
-              </div>
-
-              <div class="budget-grid" id="budgetGrid"></div>
-            </div>
-
-            <div class="expense-grid" id="expenseGrid"></div>
-
-            <div class="actions">
-              <button class="btn btn-primary" id="downloadBudget" type="button">Download my budget</button>
-              <button class="btn btn-secondary" id="resetBudget" type="button">Reset planner</button>
-            </div>
-          </section>
-        </div>
-      </div>
-    </section>
+      <section class="panel results-panel" aria-label="Budget results"><header class="results-head"><div class="results-title"><h3>Your plan</h3><p id="ruleSummary">50 / 30 / 20 • needs / wants / savings</p></div><div class="save-state" id="saveState" role="status"><strong>Saved on this device</strong><span>Your changes save automatically.</span></div></header>
+        <div class="summary"><div class="summary-top"><div class="income-box"><div class="eyebrow">Take-home for this month</div><div class="income-value" id="incomeTotal">₱0</div><div class="income-meta" id="incomeMeta">Add your payouts to start planning.</div></div><div class="overall"><div class="overall-line"><span>Plan check</span><span id="overallStatus" class="status good">Add expenses</span></div><div class="bar" aria-hidden="true"><span id="overallBar"></span></div><div class="overall-detail"><span id="overallDetail">Nothing planned yet.</span><span id="overallPercent">0%</span></div></div></div><div class="budget-grid" id="budgetGrid"></div></div>
+        <div class="expense-grid" id="expenseGrid"></div><div class="actions"><button class="btn btn-primary" id="downloadBudget" type="button">Download my budget</button><button class="btn btn-secondary" id="resetBudget" type="button">Reset planner</button></div>
+      </section></div></div></section>
 
     <!-- SECTION: RULES -->
-    <section class="section rule-section" id="rules">
-      <div class="shell">
-        <div class="section-head">
-          <div>
-            <h2>Pick a rule that matches the season you are in.</h2>
-            <p>Different splits make sense for different cash-flow situations. Start with one, then customize it.</p>
-          </div>
-        </div>
-        <div class="rule-cards">
-          <div class="rule-card"><strong>50 / 30 / 20</strong><span>Balanced starting point for needs, wants, and savings or debt.</span></div>
-          <div class="rule-card"><strong>70 / 20 / 10</strong><span>More room for essentials while protecting a 20% savings target.</span></div>
-          <div class="rule-card"><strong>60 / 40</strong><span>A savings-heavy split when you can keep total spending near 60%.</span></div>
-          <div class="rule-card"><strong>80 / 20</strong><span>Simple to follow when you want one clear spending cap and one saving target.</span></div>
-          <div class="rule-card"><strong>Custom</strong><span>Use your real priorities when a preset does not fit your life.</span></div>
-        </div>
-      </div>
-    </section>
+    <section class="section rule-section" id="rules"><div class="shell"><div class="section-head"><div><h2>Pick a rule that matches the season you are in.</h2><p>Different splits make sense for different cash-flow situations. Start with one, then customize it.</p></div></div><div class="rule-cards"><div class="rule-card"><strong>50 / 30 / 20</strong><span>Balanced starting point for needs, wants, and savings or debt.</span></div><div class="rule-card"><strong>70 / 20 / 10</strong><span>More room for essentials while protecting a 20% savings target.</span></div><div class="rule-card"><strong>60 / 40</strong><span>A savings-heavy split when you can keep total spending near 60%.</span></div><div class="rule-card"><strong>80 / 20</strong><span>Simple to follow when you want one clear spending cap and one saving target.</span></div><div class="rule-card"><strong>Custom</strong><span>Use your real priorities when a preset does not fit your life.</span></div></div></div></section>
 
     <!-- SECTION: HOW IT WORKS -->
-    <section class="section" id="how-it-works">
-      <div class="shell how-it-works">
-        <div class="steps">
-          <div class="step"><div class="step-index">1</div><div><h3>Add your real pay</h3><p>Choose weekly, bi-weekly, or monthly. Enter each payout for the month so variable pay does not get hidden behind an average.</p></div></div>
-          <div class="step"><div class="step-index">2</div><div><h3>Choose a starting rule</h3><p>Use 50/30/20, 70/20/10, 60/40, 80/20, or build a custom split.</p></div></div>
-          <div class="step"><div class="step-index">3</div><div><h3>Plan the details</h3><p>Add editable items under Needs, Wants, and Savings / Debt. The planner checks each category as you type.</p></div></div>
-          <div class="step"><div class="step-index">4</div><div><h3>Keep a copy</h3><p>Your latest version stays saved in this browser. Download the plan as a spreadsheet-friendly CSV when you want a file.</p></div></div>
-        </div>
-        <aside class="note-block">
-          <h3>Use the calculator anywhere</h3>
-          <p>The floating calculator stays out of the way until you need quick math. Open it from the bottom-right corner, or hide it again when you are done.</p>
-        </aside>
-      </div>
-    </section>
+    <section class="section" id="how-it-works"><div class="shell how-it-works"><div class="steps"><div class="step"><div class="step-index">1</div><div><h3>Add your real pay</h3><p>Choose weekly, bi-weekly, or monthly. Enter each payout for the month so variable pay does not get hidden behind an average.</p></div></div><div class="step"><div class="step-index">2</div><div><h3>Choose a starting rule</h3><p>Use 50/30/20, 70/20/10, 60/40, 80/20, or build a custom split.</p></div></div><div class="step"><div class="step-index">3</div><div><h3>Plan the details</h3><p>Add editable items under Needs, Wants, and Savings / Debt. The planner checks each category as you type.</p></div></div><div class="step"><div class="step-index">4</div><div><h3>Keep a copy</h3><p>Your latest version stays saved in this browser. Download the plan as a spreadsheet-friendly CSV when you want a file.</p></div></div></div><aside class="note-block"><h3>Use the calculator anywhere</h3><p>The floating calculator stays out of the way until you need quick math. Open it from the bottom-right corner, or hide it again when you are done.</p></aside></div></section>
   </main>
 
   <!-- SECTION: FOOTER -->
-  <footer>
-    <div class="shell footer-line">
-      <span>Financial Freedom • Simple planning for real paychecks.</span>
-      <span>Built as a lightweight browser tool. No account required.</span>
-    </div>
-  </footer>
+  <footer><div class="shell footer-line"><span>Financial Freedom • Simple planning for real paychecks.</span><span>Built as a lightweight browser tool. No account required.</span></div></footer>
 
   <!-- FLOATING CALCULATOR -->
-  <button class="calculator-toggle" id="calculatorToggle" type="button" aria-expanded="false" aria-controls="calculator">Calculator</button>
-  <section class="calculator" id="calculator" hidden aria-label="Calculator">
-    <div class="calc-head"><strong>Quick calculator</strong><button class="calc-close" id="calculatorClose" type="button" aria-label="Close calculator">×</button></div>
-    <div class="calc-display" id="calcDisplay" aria-live="polite">0</div>
-    <div class="calc-keys">
-      <button type="button" data-calc="clear">C</button>
-      <button type="button" data-calc="back">⌫</button>
-      <button type="button" class="op" data-calc="percent">%</button>
-      <button type="button" class="op" data-value="/">÷</button>
-      <button type="button" data-value="7">7</button>
-      <button type="button" data-value="8">8</button>
-      <button type="button" data-value="9">9</button>
-      <button type="button" class="op" data-value="*">×</button>
-      <button type="button" data-value="4">4</button>
-      <button type="button" data-value="5">5</button>
-      <button type="button" data-value="6">6</button>
-      <button type="button" class="op" data-value="-">−</button>
-      <button type="button" data-value="1">1</button>
-      <button type="button" data-value="2">2</button>
-      <button type="button" data-value="3">3</button>
-      <button type="button" class="op" data-value="+">+</button>
-      <button type="button" data-value="0">0</button>
-      <button type="button" data-value=".">.</button>
-      <button type="button" class="equals" data-calc="equals">=</button>
-    </div>
-  </section>
-
+  <button class="calculator-toggle" id="calculatorToggle" type="button" aria-expanded="false" aria-controls="calculator">Calculator</button><section class="calculator" id="calculator" hidden aria-label="Calculator"><div class="calc-head"><strong>Quick calculator</strong><button class="calc-close" id="calculatorClose" type="button" aria-label="Close calculator">×</button></div><div class="calc-display" id="calcDisplay" aria-live="polite">0</div><div class="calc-keys"><button type="button" data-calc="clear">C</button><button type="button" data-calc="back">⌫</button><button type="button" class="op" data-calc="percent">%</button><button type="button" class="op" data-value="/">÷</button><button type="button" data-value="7">7</button><button type="button" data-value="8">8</button><button type="button" data-value="9">9</button><button type="button" class="op" data-value="*">×</button><button type="button" data-value="4">4</button><button type="button" data-value="5">5</button><button type="button" data-value="6">6</button><button type="button" class="op" data-value="-">−</button><button type="button" data-value="1">1</button><button type="button" data-value="2">2</button><button type="button" data-value="3">3</button><button type="button" class="op" data-value="+">+</button><button type="button" data-value="0">0</button><button type="button" data-value=".">.</button><button type="button" class="equals" data-calc="equals">=</button></div></section>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    (() => {
-      const STORAGE_KEY = 'financialFreedomPlannerV1';
-      const currency = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 });
-
-      const ruleMeta = {
-        '503020': { name:'50 / 30 / 20', summary:'50 / 30 / 20 • needs / wants / savings', mode:'three', needs:50, wants:30, savings:20 },
-        '702010': { name:'70 / 20 / 10', summary:'70 / 20 / 10 • needs / savings / wants', mode:'three', needs:70, wants:10, savings:20 },
-        '6040': { name:'60 / 40', summary:'60 / 40 • spending / savings', mode:'spend-save', spending:60, savings:40 },
-        '8020': { name:'80 / 20', summary:'80 / 20 • spending / savings', mode:'spend-save', spending:80, savings:20 },
-        custom: { name:'Custom', summary:'Custom split • set your own targets', mode:'three' }
+    (()=>{
+      const STORAGE_KEY='financialFreedomPlannerV1';
+      const currency=new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP',maximumFractionDigits:0});
+      const ruleMeta={
+        '503020':{name:'50 / 30 / 20',summary:'50 / 30 / 20 • needs / wants / savings',mode:'three',needs:50,wants:30,savings:20},
+        '702010':{name:'70 / 20 / 10',summary:'70 / 20 / 10 • needs / savings / wants',mode:'three',needs:70,wants:10,savings:20},
+        '6040':{name:'60 / 40',summary:'60 / 40 • spending / savings',mode:'spend-save',spending:60,savings:40},
+        '8020':{name:'80 / 20',summary:'80 / 20 • spending / savings',mode:'spend-save',spending:80,savings:20},
+        custom:{name:'Custom',summary:'Custom split • set your own targets',mode:'three'}
       };
-
-      const defaultItems = {
-        needs:[{name:'Housing', amount:0},{name:'Groceries', amount:0}],
-        wants:[{name:'Dining out', amount:0},{name:'Subscriptions', amount:0}],
-        savings:[{name:'Emergency fund', amount:0},{name:'Debt payment', amount:0}]
-      };
-
-      const state = {
-        payoutType:'biweekly',
-        payouts:[{label:'Payout 1', amount:0},{label:'Payout 2', amount:0}],
-        rule:'503020',
-        custom:{needs:50,wants:30,savings:20},
-        items:structuredClone(defaultItems)
-      };
-
-      const els = {
-        payoutType:document.getElementById('payoutType'), payoutList:document.getElementById('payoutList'), addPayout:document.getElementById('addPayout'),
-        incomeTotal:document.getElementById('incomeTotal'), incomeMeta:document.getElementById('incomeMeta'), ruleSummary:document.getElementById('ruleSummary'),
-        budgetGrid:document.getElementById('budgetGrid'), expenseGrid:document.getElementById('expenseGrid'), overallStatus:document.getElementById('overallStatus'),
-        overallDetail:document.getElementById('overallDetail'), overallPercent:document.getElementById('overallPercent'), overallBar:document.getElementById('overallBar'),
-        customNeeds:document.getElementById('customNeeds'), customWants:document.getElementById('customWants'), customSavings:document.getElementById('customSavings'),
-        saveState:document.getElementById('saveState'), downloadBudget:document.getElementById('downloadBudget'), resetBudget:document.getElementById('resetBudget'), toast:document.getElementById('toast'),
-        calculatorToggle:document.getElementById('calculatorToggle'), calculatorClose:document.getElementById('calculatorClose'), calculator:document.getElementById('calculator'), calcDisplay:document.getElementById('calcDisplay')
-      };
-
-      let toastTimer;
-      const money = value => currency.format(Math.round(Number(value) || 0));
-      const clamp = (value,min,max) => Math.min(max,Math.max(min,Number(value)||0));
-
-      function showToast(message){
-        els.toast.textContent = message;
-        els.toast.classList.add('show');
-        clearTimeout(toastTimer); toastTimer=setTimeout(()=>els.toast.classList.remove('show'),2200);
-      }
-
-      function sanitizeState(){
-        state.payouts = Array.isArray(state.payouts) && state.payouts.length ? state.payouts.slice(0,12).map((p,i)=>({label:String(p.label||`Payout ${i+1}`),amount:Math.max(0,Number(p.amount)||0)})) : [{label:'Payout 1',amount:0}];
-        state.items = ['needs','wants','savings'].reduce((acc,key)=>{
-          const items = Array.isArray(state.items?.[key]) && state.items[key].length ? state.items[key] : defaultItems[key];
-          acc[key]=items.slice(0,20).map(item=>({name:String(item.name||'Untitled'),amount:Math.max(0,Number(item.amount)||0)}));
-          return acc;
-        },{});
-        state.custom.needs=clamp(state.custom.needs,0,100); state.custom.wants=clamp(state.custom.wants,0,100); state.custom.savings=clamp(state.custom.savings,0,100);
-      }
-
-      function loadState(){
-        try{
-          const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
-          if(saved && typeof saved==='object') Object.assign(state,saved);
-        }catch(e){}
-        sanitizeState();
-        els.payoutType.value=state.payoutType;
-        const radio=document.querySelector(`input[name="rule"][value="${state.rule}"]`); if(radio) radio.checked=true;
-        syncCustomInputs();
-      }
-
-      function saveState(){
-        try{
-          localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
-          els.saveState.innerHTML='<strong>Saved on this device</strong><span>Updated just now.</span>';
-        }catch(e){
-          els.saveState.innerHTML='<strong>Browser save unavailable</strong><span>Your budget still works in this tab.</span>';
-        }
-      }
-
-      function syncCustomInputs(){
-        els.customNeeds.value=state.custom.needs; els.customWants.value=state.custom.wants; els.customSavings.value=state.custom.savings;
-      }
-
-      function renderPayouts(){
-        els.payoutList.innerHTML='';
-        state.payouts.forEach((payout,index)=>{
-          const row=document.createElement('div'); row.className='payout-row';
-          row.innerHTML=`<input type="number" min="0" step="1" inputmode="decimal" aria-label="${payout.label} amount" value="${payout.amount}"><button type="button" aria-label="Remove ${payout.label}">×</button>`;
-          const amount=row.querySelector('input'); amount.addEventListener('input',()=>{payout.amount=Math.max(0,Number(amount.value)||0); render(); saveState();});
-          const remove=row.querySelector('button'); remove.addEventListener('click',()=>{if(state.payouts.length===1){showToast('Keep at least one payout.');return;} state.payouts.splice(index,1); render(); saveState();});
-          els.payoutList.appendChild(row);
-        });
-      }
-
-      function getRule(){
-        if(state.rule==='custom'){
-          return { ...ruleMeta.custom, needs:state.custom.needs,wants:state.custom.wants,savings:state.custom.savings };
-        }
-        return ruleMeta[state.rule];
-      }
-
-      function targets(income){
-        const rule=getRule();
-        if(rule.mode==='spend-save') return {mode:rule.mode,needs:null,wants:null,savings:income*rule.savings/100,spending:income*rule.spending/100};
-        return {mode:rule.mode,needs:income*rule.needs/100,wants:income*rule.wants/100,savings:income*rule.savings/100};
-      }
-
-      function totalFor(key){ return state.items[key].reduce((sum,item)=>sum+item.amount,0); }
-      function totalPlanned(){ return totalFor('needs')+totalFor('wants')+totalFor('savings'); }
-
-      function statusFor(spent,target){
-        if(target===null) return {label:'Tracked within spending target',className:'good'};
-        const delta=target-spent;
-        if(Math.abs(delta)<1) return {label:'On target',className:'good'};
-        if(delta>0) return {label:`${money(delta)} remaining`,className:'good'};
-        return {label:`${money(Math.abs(delta))} over target`,className:'bad'};
-      }
-
-      function renderBudgetGrid(income){
-        const t=targets(income); const cards=[];
-        if(t.mode==='spend-save'){
-          cards.push({title:'Spending',value:t.spending,note:'Needs + wants combined'});
-          cards.push({title:'Savings / Debt',value:t.savings,note:`${getRule().savings}% of take-home`});
-          cards.push({title:'Rule',value:null,note:`Keep planned spending within ${getRule().spending}%`});
-        }else{
-          cards.push({title:'Needs',value:t.needs,note:`${getRule().needs}% of take-home`});
-          cards.push({title:'Wants',value:t.wants,note:`${getRule().wants}% of take-home`});
-          cards.push({title:'Savings / Debt',value:t.savings,note:`${getRule().savings}% of take-home`});
-        }
-        els.budgetGrid.innerHTML=cards.map(card=>`<div class="budget-line"><h4>${card.title}</h4><div class="budget-number">${card.value===null ? getRule().name : money(card.value)}</div><div class="budget-note">${card.note}</div></div>`).join('');
-      }
-
-      function renderExpenseGroup(key,title,target,totalIncome){
-        const wrapper=document.createElement('div'); wrapper.className='expense-group';
-        const total=totalFor(key); const status=statusFor(total,target);
-        const targetText=target===null ? 'No separate target in this rule' : `Target ${money(target)}`;
-        wrapper.innerHTML=`<header><h4>${title}</h4><span class="expense-total">${money(total)} / ${target===null?'combined':money(target)}</span></header><div class="expense-status status ${status.className}">${status.label}</div><div class="bar" aria-hidden="true"><span style="width:${target===null?Math.min(100,(total/Math.max(totalIncome,1))*100):Math.min(100,(total/Math.max(target,1))*100)}%"></span></div><div class="expense-items"></div><button class="btn btn-quiet add-expense" type="button">+ Add item</button>`;
-        const itemsWrap=wrapper.querySelector('.expense-items');
-        state.items[key].forEach((item,index)=>{
-          const row=document.createElement('div');row.className='expense-row';
-          row.innerHTML=`<input type="text" aria-label="${title} item name" value="${escapeAttr(item.name)}"><input type="number" min="0" step="1" inputmode="decimal" aria-label="${item.name} amount" value="${item.amount}"><button type="button" aria-label="Remove ${item.name}">×</button>`;
-          const [nameInput,amountInput,remove]=row.children;
-          nameInput.addEventListener('input',()=>{item.name=nameInput.value; saveState();});
-          amountInput.addEventListener('input',()=>{item.amount=Math.max(0,Number(amountInput.value)||0); render(); saveState();});
-          remove.addEventListener('click',()=>{if(state.items[key].length===1){state.items[key][0]={name:'Untitled',amount:0};}else{state.items[key].splice(index,1);} render(); saveState();});
-          itemsWrap.appendChild(row);
-        });
-        wrapper.querySelector('.add-expense').addEventListener('click',()=>{state.items[key].push({name:'New item',amount:0});render();saveState();const inputs=els.expenseGrid.querySelectorAll(`.expense-group`)[['needs','wants','savings'].indexOf(key)].querySelectorAll('input');inputs[inputs.length-2]?.focus();});
-        return wrapper;
-      }
-
-      function escapeAttr(text){return String(text).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-      function renderExpenseGrid(income){
-        els.expenseGrid.innerHTML=''; const t=targets(income);
-        els.expenseGrid.appendChild(renderExpenseGroup('needs','Needs',t.needs,income));
-        els.expenseGrid.appendChild(renderExpenseGroup('wants','Wants',t.wants,income));
-        els.expenseGrid.appendChild(renderExpenseGroup('savings','Savings / Debt',t.savings,income));
-      }
-
-      function render(){
-        sanitizeState();
-        renderPayouts();
-        const income=state.payouts.reduce((sum,p)=>sum+p.amount,0);
-        const rule=getRule();
-        els.incomeTotal.textContent=money(income);
-        els.ruleSummary.textContent=rule.summary;
-        els.incomeMeta.textContent=income?`${state.payouts.length} payout ${state.payouts.length===1?'entry':'entries'} added • ${state.payoutType==='biweekly'?'bi-weekly':state.payoutType} schedule`: 'Add your payouts to start planning.';
-        renderBudgetGrid(income);
-        renderExpenseGrid(income);
-
-        const planned=totalPlanned();
-        const overallTarget=income;
-        const pct=income?Math.round(planned/income*100):0;
-        els.overallBar.style.width=`${Math.min(100,pct)}%`;
-        els.overallPercent.textContent=`${pct}%`;
-        if(!income){
-          els.overallStatus.textContent='Add income'; els.overallStatus.className='status warn'; els.overallDetail.textContent='Enter your take-home pay first.';
-        }else if(planned<=income){
-          const remaining=income-planned;
-          els.overallStatus.textContent=planned?'Within income':'Ready to plan'; els.overallStatus.className='status good';
-          els.overallDetail.textContent=planned?`${money(remaining)} unallocated`:'Nothing planned yet.';
-        }else{
-          const over=planned-income;
-          els.overallStatus.textContent=`${money(over)} over`; els.overallStatus.className='status bad';
-          els.overallDetail.textContent='Planned amounts exceed take-home.';
-        }
-      }
-
-      document.querySelectorAll('input[name="rule"]').forEach(radio=>radio.addEventListener('change',()=>{state.rule=radio.value;syncCustomInputs();render();saveState();}));
-      [els.customNeeds,els.customWants,els.customSavings].forEach(input=>input.addEventListener('input',()=>{state.custom.needs=clamp(els.customNeeds.value,0,100);state.custom.wants=clamp(els.customWants.value,0,100);state.custom.savings=clamp(els.customSavings.value,0,100); if(state.rule!=='custom'){state.rule='custom';document.querySelector('input[name="rule"][value="custom"]').checked=true;} render(); saveState();}));
-      els.payoutType.addEventListener('change',()=>{state.payoutType=els.payoutType.value;render();saveState();});
-      els.addPayout.addEventListener('click',()=>{if(state.payouts.length>=12){showToast('You can track up to 12 payouts.');return;}state.payouts.push({label:`Payout ${state.payouts.length+1}`,amount:0});render();saveState();});
-
-      function downloadCSV(){
-        const income=state.payouts.reduce((sum,p)=>sum+p.amount,0); const rule=getRule(); const t=targets(income);
-        const rows=[['Financial Freedom Budget','',''],['Payout schedule',state.payoutType,''],['Budgeting rule',rule.name,''],['','',''],['Payouts','Amount',''],...state.payouts.map(p=>[p.label,p.amount,'']),['Total take-home',income,''],['','',''],['Category','Item','Planned amount'],...Object.entries(state.items).flatMap(([key,items])=>items.map(item=>[key==='needs'?'Needs':key==='wants'?'Wants':'Savings / Debt',item.name,item.amount])),['','',''],['Target','Amount',''],['Needs',t.needs??'Combined spending target',t.needs??t.spending||''],['Wants',t.wants??'Combined spending target',t.wants??t.spending||''],['Savings / Debt',t.savings,'']];
-        const csv=rows.map(row=>row.map(cell=>`"${String(cell??'').replace(/"/g,'""')}"`).join(',')).join('\n');
-        const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='financial-freedom-budget.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); showToast('Budget downloaded as a spreadsheet-friendly CSV.');
-      }
-      els.downloadBudget.addEventListener('click',downloadCSV);
-
-      els.resetBudget.addEventListener('click',()=>{
-        if(!confirm('Reset your budget and remove the saved version on this device?')) return;
-        Object.assign(state,{payoutType:'biweekly',payouts:[{label:'Payout 1',amount:0},{label:'Payout 2',amount:0}],rule:'503020',custom:{needs:50,wants:30,savings:20},items:structuredClone(defaultItems)});
-        localStorage.removeItem(STORAGE_KEY); els.payoutType.value=state.payoutType;document.querySelector('input[name="rule"][value="503020"]').checked=true;syncCustomInputs();render();showToast('Planner reset.');
-      });
-
+      const defaultItems={needs:[{name:'Housing',amount:0},{name:'Groceries',amount:0}],wants:[{name:'Dining out',amount:0},{name:'Subscriptions',amount:0}],savings:[{name:'Emergency fund',amount:0},{name:'Debt payment',amount:0}]};
+      const state={payoutType:'biweekly',payouts:[{label:'Payout 1',amount:0},{label:'Payout 2',amount:0}],rule:'503020',custom:{needs:50,wants:30,savings:20},items:structuredClone(defaultItems)};
+      const els={payoutType:document.getElementById('payoutType'),payoutList:document.getElementById('payoutList'),addPayout:document.getElementById('addPayout'),incomeTotal:document.getElementById('incomeTotal'),incomeMeta:document.getElementById('incomeMeta'),ruleSummary:document.getElementById('ruleSummary'),budgetGrid:document.getElementById('budgetGrid'),expenseGrid:document.getElementById('expenseGrid'),overallStatus:document.getElementById('overallStatus'),overallDetail:document.getElementById('overallDetail'),overallPercent:document.getElementById('overallPercent'),overallBar:document.getElementById('overallBar'),customNeeds:document.getElementById('customNeeds'),customWants:document.getElementById('customWants'),customSavings:document.getElementById('customSavings'),saveState:document.getElementById('saveState'),downloadBudget:document.getElementById('downloadBudget'),resetBudget:document.getElementById('resetBudget'),toast:document.getElementById('toast'),calculatorToggle:document.getElementById('calculatorToggle'),calculatorClose:document.getElementById('calculatorClose'),calculator:document.getElementById('calculator'),calcDisplay:document.getElementById('calcDisplay')};
+      let toastTimer; const money=value=>currency.format(Math.round(Number(value)||0)); const clamp=(value,min,max)=>Math.min(max,Math.max(min,Number(value)||0));
+      function showToast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>els.toast.classList.remove('show'),2200)}
+      function sanitizeState(){state.payouts=Array.isArray(state.payouts)&&state.payouts.length?state.payouts.slice(0,12).map((p,i)=>({label:String(p.label||`Payout ${i+1}`),amount:Math.max(0,Number(p.amount)||0)})):[{label:'Payout 1',amount:0}];state.items=['needs','wants','savings'].reduce((acc,key)=>{const items=Array.isArray(state.items?.[key])&&state.items[key].length?state.items[key]:defaultItems[key];acc[key]=items.slice(0,20).map(item=>({name:String(item.name||'Untitled'),amount:Math.max(0,Number(item.amount)||0)}));return acc},{});state.custom.needs=clamp(state.custom.needs,0,100);state.custom.wants=clamp(state.custom.wants,0,100);state.custom.savings=clamp(state.custom.savings,0,100)}
+      function loadState(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(saved&&typeof saved==='object')Object.assign(state,saved)}catch(e){}sanitizeState();els.payoutType.value=state.payoutType;const radio=document.querySelector(`input[name="rule"][value="${state.rule}"]`);if(radio)radio.checked=true;syncCustomInputs()}
+      function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));els.saveState.innerHTML='<strong>Saved on this device</strong><span>Updated just now.</span>'}catch(e){els.saveState.innerHTML='<strong>Browser save unavailable</strong><span>Your budget still works in this tab.</span>'}}
+      function syncCustomInputs(){els.customNeeds.value=state.custom.needs;els.customWants.value=state.custom.wants;els.customSavings.value=state.custom.savings}
+      function renderPayouts(){els.payoutList.innerHTML='';state.payouts.forEach((payout,index)=>{const row=document.createElement('div');row.className='payout-row';row.innerHTML=`<input type="number" min="0" step="1" inputmode="decimal" aria-label="${payout.label} amount" value="${payout.amount}"><button type="button" aria-label="Remove ${payout.label}">×</button>`;const amount=row.querySelector('input');amount.addEventListener('input',()=>{payout.amount=Math.max(0,Number(amount.value)||0);render();saveState()});const remove=row.querySelector('button');remove.addEventListener('click',()=>{if(state.payouts.length===1){showToast('Keep at least one payout.');return}state.payouts.splice(index,1);render();saveState()});els.payoutList.appendChild(row)})}
+      function getRule(){return state.rule==='custom'?{...ruleMeta.custom,needs:state.custom.needs,wants:state.custom.wants,savings:state.custom.savings}:ruleMeta[state.rule]}
+      function targets(income){const rule=getRule();if(rule.mode==='spend-save')return{mode:rule.mode,needs:null,wants:null,savings:income*rule.savings/100,spending:income*rule.spending/100};return{mode:rule.mode,needs:income*rule.needs/100,wants:income*rule.wants/100,savings:income*rule.savings/100}}
+      function totalFor(key){return state.items[key].reduce((sum,item)=>sum+item.amount,0)} function totalPlanned(){return totalFor('needs')+totalFor('wants')+totalFor('savings')}
+      function statusFor(spent,target){if(target===null)return{label:'Tracked within spending target',className:'good'};const delta=target-spent;if(Math.abs(delta)<1)return{label:'On target',className:'good'};if(delta>0)return{label:`${money(delta)} remaining`,className:'good'};return{label:`${money(Math.abs(delta))} over target`,className:'bad'}}
+      function renderBudgetGrid(income){const t=targets(income),cards=[];if(t.mode==='spend-save'){cards.push({title:'Spending',value:t.spending,note:'Needs + wants combined'});cards.push({title:'Savings / Debt',value:t.savings,note:`${getRule().savings}% of take-home`});cards.push({title:'Rule',value:null,note:`Keep planned spending within ${getRule().spending}%`})}else{cards.push({title:'Needs',value:t.needs,note:`${getRule().needs}% of take-home`});cards.push({title:'Wants',value:t.wants,note:`${getRule().wants}% of take-home`});cards.push({title:'Savings / Debt',value:t.savings,note:`${getRule().savings}% of take-home`})}els.budgetGrid.innerHTML=cards.map(card=>`<div class="budget-line"><h4>${card.title}</h4><div class="budget-number">${card.value===null?getRule().name:money(card.value)}</div><div class="budget-note">${card.note}</div></div>`).join('')}
+      function escapeAttr(text){return String(text).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+      function renderExpenseGroup(key,title,target,totalIncome){const wrapper=document.createElement('div');wrapper.className='expense-group';const total=totalFor(key),status=statusFor(total,target),width=target===null?Math.min(100,total/Math.max(totalIncome,1)*100):Math.min(100,total/Math.max(target,1)*100);wrapper.innerHTML=`<header><h4>${title}</h4><span class="expense-total">${money(total)} / ${target===null?'combined':money(target)}</span></header><div class="expense-status status ${status.className}">${status.label}</div><div class="bar" aria-hidden="true"><span style="width:${width}%"></span></div><div class="expense-items"></div><button class="btn btn-quiet add-expense" type="button">+ Add item</button>`;const itemsWrap=wrapper.querySelector('.expense-items');state.items[key].forEach((item,index)=>{const row=document.createElement('div');row.className='expense-row';row.innerHTML=`<input type="text" aria-label="${title} item name" value="${escapeAttr(item.name)}"><input type="number" min="0" step="1" inputmode="decimal" aria-label="${item.name} amount" value="${item.amount}"><button type="button" aria-label="Remove ${item.name}">×</button>`;const [nameInput,amountInput,remove]=row.children;nameInput.addEventListener('input',()=>{item.name=nameInput.value;saveState()});amountInput.addEventListener('input',()=>{item.amount=Math.max(0,Number(amountInput.value)||0);render();saveState()});remove.addEventListener('click',()=>{if(state.items[key].length===1)state.items[key][0]={name:'Untitled',amount:0};else state.items[key].splice(index,1);render();saveState()});itemsWrap.appendChild(row)});wrapper.querySelector('.add-expense').addEventListener('click',()=>{state.items[key].push({name:'New item',amount:0});render();saveState()});return wrapper}
+      function renderExpenseGrid(income){els.expenseGrid.innerHTML='';const t=targets(income);els.expenseGrid.appendChild(renderExpenseGroup('needs','Needs',t.needs,income));els.expenseGrid.appendChild(renderExpenseGroup('wants','Wants',t.wants,income));els.expenseGrid.appendChild(renderExpenseGroup('savings','Savings / Debt',t.savings,income))}
+      function render(){sanitizeState();renderPayouts();const income=state.payouts.reduce((sum,p)=>sum+p.amount,0),rule=getRule();els.incomeTotal.textContent=money(income);els.ruleSummary.textContent=rule.summary;els.incomeMeta.textContent=income?`${state.payouts.length} payout ${state.payouts.length===1?'entry':'entries'} added • ${state.payoutType==='biweekly'?'bi-weekly':state.payoutType} schedule`:'Add your payouts to start planning.';renderBudgetGrid(income);renderExpenseGrid(income);const planned=totalPlanned(),pct=income?Math.round(planned/income*100):0;els.overallBar.style.width=`${Math.min(100,pct)}%`;els.overallPercent.textContent=`${pct}%`;if(!income){els.overallStatus.textContent='Add income';els.overallStatus.className='status warn';els.overallDetail.textContent='Enter your take-home pay first'}else if(planned<=income){const remaining=income-planned;els.overallStatus.textContent=planned?'Within income':'Ready to plan';els.overallStatus.className='status good';els.overallDetail.textContent=planned?`${money(remaining)} unallocated`:'Nothing planned yet.'}else{const over=planned-income;els.overallStatus.textContent=`${money(over)} over`;els.overallStatus.className='status bad';els.overallDetail.textContent='Planned amounts exceed take-home.'}}
+      document.querySelectorAll('input[name="rule"]').forEach(radio=>radio.addEventListener('change',()=>{state.rule=radio.value;syncCustomInputs();render();saveState()}));[els.customNeeds,els.customWants,els.customSavings].forEach(input=>input.addEventListener('input',()=>{state.custom.needs=clamp(els.customNeeds.value,0,100);state.custom.wants=clamp(els.customWants.value,0,100);state.custom.savings=clamp(els.customSavings.value,0,100);if(state.rule!=='custom'){state.rule='custom';document.querySelector('input[name="rule"][value="custom"]').checked=true}render();saveState()}));els.payoutType.addEventListener('change',()=>{state.payoutType=els.payoutType.value;render();saveState()});els.addPayout.addEventListener('click',()=>{if(state.payouts.length>=12){showToast('You can track up to 12 payouts.');return}state.payouts.push({label:`Payout ${state.payouts.length+1}`,amount:0});render();saveState()});
+      function downloadCSV(){const income=state.payouts.reduce((sum,p)=>sum+p.amount,0),rule=getRule(),t=targets(income);const rows=[['Financial Freedom Budget','',''],['Payout schedule',state.payoutType,''],['Budgeting rule',rule.name,''],['','',''],['Payouts','Amount',''],...state.payouts.map(p=>[p.label,p.amount,'']),['Total take-home',income,''],['','',''],['Category','Item','Planned amount'],...Object.entries(state.items).flatMap(([key,items])=>items.map(item=>[key==='needs'?'Needs':key==='wants'?'Wants':'Savings / Debt',item.name,item.amount])),['','',''],['Target','Amount',''],['Needs',t.needs??'Combined spending target',t.needs??t.spending||''],['Wants',t.wants??'Combined spending target',t.wants??t.spending||''],['Savings / Debt',t.savings,'']];const csv=rows.map(row=>row.map(cell=>`"${String(cell??'').replace(/"/g,'""')}"`).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='financial-freedom-budget.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);showToast('Budget downloaded as a spreadsheet-friendly CSV.')}
+      els.downloadBudget.addEventListener('click',downloadCSV);els.resetBudget.addEventListener('click',()=>{if(!confirm('Reset your budget and remove the saved version on this device?'))return;Object.assign(state,{payoutType:'biweekly',payouts:[{label:'Payout 1',amount:0},{label:'Payout 2',amount:0}],rule:'503020',custom:{needs:50,wants:30,savings:20},items:structuredClone(defaultItems)});localStorage.removeItem(STORAGE_KEY);els.payoutType.value=state.payoutType;document.querySelector('input[name="rule"][value="503020"]').checked=true;syncCustomInputs();render();showToast('Planner reset.')});
       // FLOATING CALCULATOR
-      let calcValue='0', calcStored=null, calcOperator=null, calcFresh=false;
-      function updateCalc(){els.calcDisplay.textContent=calcValue;}
-      function calculate(a,b,op){a=Number(a);b=Number(b);if(op==='+')return a+b;if(op==='-')return a-b;if(op==='*')return a*b;if(op==='/')return b===0?0:a/b;return b;}
-      function calcInput(value){
-        if(calcFresh){calcValue=value==='.'?'0.':value;calcFresh=false;updateCalc();return;}
-        if(value==='.' && calcValue.includes('.'))return;
-        calcValue=calcValue==='0' && value!=='.'?value:calcValue+value;updateCalc();
-      }
-      function calcOp(op){
-        const current=Number(calcValue); if(calcOperator && calcStored!==null){calcStored=calculate(calcStored,current,calcOperator);calcValue=String(roundCalc(calcStored));}
-        else calcStored=current;
-        calcOperator=op;calcFresh=true;updateCalc();
-      }
-      function roundCalc(n){return Math.round((n+Number.EPSILON)*1e10)/1e10;}
-      document.querySelectorAll('[data-value]').forEach(btn=>btn.addEventListener('click',()=>{const v=btn.dataset.value;'+-*/'.includes(v)?calcOp(v):calcInput(v);}));
-      document.querySelector('[data-calc="clear"]').addEventListener('click',()=>{calcValue='0';calcStored=null;calcOperator=null;calcFresh=false;updateCalc();});
-      document.querySelector('[data-calc="back"]').addEventListener('click',()=>{calcValue=calcValue.length>1?calcValue.slice(0,-1):'0';updateCalc();});
-      document.querySelector('[data-calc="percent"]').addEventListener('click',()=>{calcValue=String(roundCalc(Number(calcValue)/100));updateCalc();});
-      document.querySelector('[data-calc="equals"]').addEventListener('click',()=>{if(calcOperator!==null&&calcStored!==null){calcValue=String(roundCalc(calculate(calcStored,Number(calcValue),calcOperator)));calcStored=null;calcOperator=null;calcFresh=true;updateCalc();}});
-      function toggleCalc(open){els.calculator.hidden=!open;els.calculatorToggle.setAttribute('aria-expanded',String(open));if(open)els.calcDisplay.focus?.();}
-      els.calculatorToggle.addEventListener('click',()=>toggleCalc(els.calculator.hidden));
-      els.calculatorClose.addEventListener('click',()=>toggleCalc(false));
-      document.addEventListener('keydown',e=>{
-        if(els.calculator.hidden)return;
-        if(/^[0-9.]$/.test(e.key))calcInput(e.key);
-        else if(['+','-','*','/'].includes(e.key))calcOp(e.key);
-        else if(e.key==='Enter')document.querySelector('[data-calc="equals"]').click();
-        else if(e.key==='Escape')toggleCalc(false);
-        else if(e.key==='Backspace')document.querySelector('[data-calc="back"]').click();
-      });
-
-      loadState(); render();
+      let calcValue='0',calcStored=null,calcOperator=null,calcFresh=false;function updateCalc(){els.calcDisplay.textContent=calcValue}function calculate(a,b,op){a=Number(a);b=Number(b);if(op==='+')return a+b;if(op==='-')return a-b;if(op==='*')return a*b;if(op==='/')return b===0?0:a/b;return b}function roundCalc(n){return Math.round((n+Number.EPSILON)*1e10)/1e10}function calcInput(value){if(calcFresh){calcValue=value==='.'?'0.':value;calcFresh=false;updateCalc();return}if(value==='.'&&calcValue.includes('.'))return;calcValue=calcValue==='0'&&value!=='.'?value:calcValue+value;updateCalc()}function calcOp(op){const current=Number(calcValue);if(calcOperator&&calcStored!==null){calcStored=calculate(calcStored,current,calcOperator);calcValue=String(roundCalc(calcStored))}else calcStored=current;calcOperator=op;calcFresh=true;updateCalc()}document.querySelectorAll('[data-value]').forEach(btn=>btn.addEventListener('click',()=>{const v=btn.dataset.value;'+-*/'.includes(v)?calcOp(v):calcInput(v)}));document.querySelector('[data-calc="clear"]').addEventListener('click',()=>{calcValue='0';calcStored=null;calcOperator=null;calcFresh=false;updateCalc()});document.querySelector('[data-calc="back"]').addEventListener('click',()=>{calcValue=calcValue.length>1?calcValue.slice(0,-1):'0';updateCalc()});document.querySelector('[data-calc="percent"]').addEventListener('click',()=>{calcValue=String(roundCalc(Number(calcValue)/100));updateCalc()});document.querySelector('[data-calc="equals"]').addEventListener('click',()=>{if(calcOperator!==null&&calcStored!==null){calcValue=String(roundCalc(calculate(calcStored,Number(calcValue),calcOperator)));calcStored=null;calcOperator=null;calcFresh=true;updateCalc()}});function toggleCalc(open){els.calculator.hidden=!open;els.calculatorToggle.setAttribute('aria-expanded',String(open))}els.calculatorToggle.addEventListener('click',()=>toggleCalc(els.calculator.hidden));els.calculatorClose.addEventListener('click',()=>toggleCalc(false));document.addEventListener('keydown',e=>{if(els.calculator.hidden)return;if(/^[0-9.]$/.test(e.key))calcInput(e.key);else if(['+','-','*','/'].includes(e.key))calcOp(e.key);else if(e.key==='Enter')document.querySelector('[data-calc="equals"]').click();else if(e.key==='Escape')toggleCalc(false);else if(e.key==='Backspace')document.querySelector('[data-calc="back"]').click()});
+      loadState();render();
     })();
   </script>
 </body>
